@@ -1,0 +1,47 @@
+stages:
+  data_prep:
+    cmd : python3 data_prep/task.py
+    deps:
+      - data/raw/listings.csv
+      - data_prep/task.py
+      - data_prep/transform.py
+    outs:
+      - data/processed/prepped_data.csv
+
+  training:
+    cmd : python3 training/task.py 
+    deps: 
+      - data/processed/prepped_data.csv
+      - training/task.py
+      - training/transform.py
+    outs:
+      - models/simple_classifier.pkl
+      - models/simple_classifier_details.pkl
+
+  explainability:
+    cmd : python3 explainability/task.py
+    deps:
+      - models/simple_classifier.pkl
+      - models/simple_classifier_details.pkl
+      - explainability/task.py
+      - explainability/transform.py
+    outs:
+      - explainability/plots/confusion_matrix.png
+      - explainability/plots/feature_importance.png
+      - explainability/plots/histogram_by_neighbourhood.png
+      - explainability/plots/metric_by_category_barplots.png
+
+  prediction:
+    cmd : python prediction_app/app.py
+    deps:
+      - models/simple_classifier.pkl
+      - models/simple_classifier_details.pkl
+      - prediction_app/app.py
+      - prediction_app/transform.py
+      - explainability/plots/confusion_matrix.png
+      - explainability/plots/feature_importance.png
+    
+
+
+
+  

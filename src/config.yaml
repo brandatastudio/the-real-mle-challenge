@@ -1,0 +1,62 @@
+
+
+#step1 of the execution flow
+data_prep: 
+
+  raw_data_path : 'data/raw/listings.csv'
+  prepped_for_Ml_data_path : 'data/processed/prepped_data.csv'
+  target_variable: 'price'
+  tar_variable_category_mapping: {0: 'low', 1: 'mid', 2: 'high', 3: 'lux'}
+  bathroom_text_column : 'bathrooms_text'
+  columns_for_data_prep : 
+    - 'id'
+    - 'neighbourhood_group_cleansed'
+    - 'property_type'
+    - 'room_type'
+    - 'latitude'
+    - 'longitude'
+    - 'accommodates'
+    - 'bathrooms'
+    - 'bedrooms'
+    - 'beds'
+    - 'amenities'
+    - 'price_category'
+
+  binary_column_names_to_generate_by_text:
+    - 'TV'
+    - 'Internet' 
+    - 'Air_conditioning'
+    - 'Kitchen'
+    - 'Heating'
+    - 'Wifi'
+    - 'Elevator'
+    - 'Breakfast'
+
+  text_column_for_binary_generation: 'amenities'
+
+  text_to_check: False #if text different that column names wishes to be included, add a list
+
+
+#step 2 of the execution 
+training:
+  prepped_for_Ml_data_path : 'data/processed/prepped_data.csv'
+  columns_for_training : 
+    - 'neighbourhood'
+    - 'room_type'
+    - 'accommodates'
+    - 'bathrooms'
+    - 'bedrooms'
+  target_variable: 'price_category'
+  test_size : 0.15
+  random_state: 1
+  mlflow : True
+  dvc_lock_info : 'dvc.lock'
+  extra_log_githash : True 
+  ml_model_path: 'models/simple_classifier.pkl'
+  ml_model_details_path: 'models/simple_classifier_details.pkl'
+  training_experiment_name : 'test build 11'
+  training_experiment_runs: #gridsearch 
+    run_1: {n_estimators: 500 , class_weight: 'balanced' ,  n_jobs: 4, random_state: 0 , criterion : "gini" } 
+    run_2: {n_estimators: 250 , class_weight: 'balanced' ,  n_jobs: 4, random_state: 0 , criterion : "gini"}  
+    run_3: {n_estimators: 50, class_weight: 'balanced' ,  n_jobs: 4, random_state: 0 , criterion : "gini"} 
+    

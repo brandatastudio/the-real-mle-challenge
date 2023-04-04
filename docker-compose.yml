@@ -1,0 +1,43 @@
+version: "3.9"
+services:
+  ds_environment:
+    build: ./src
+    image: python:3.8
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/src
+    depends_on: 
+      - mlflow
+    environment: 
+      MLFLOW_TRACKING_URI: 'http://mlflow:5000'
+    ports:
+      - "3000:3000"
+  mlflow:
+    build:
+      context: ./mlflow_docker
+    expose: 
+      - "5000"
+    ports:
+      - "5000:5000"
+    depends_on:
+    - postgres
+  postgres:
+    build:
+      context: ./postgres_docker
+    restart: always
+    environment:
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'secret'
+    ports: 
+      - "5432:5432"
+    volumes:
+      - ./postgres-store:/var/lib/postgresql/data
+
+volumes:
+  postgres-store:
+ #file-store:
+
+
+
+

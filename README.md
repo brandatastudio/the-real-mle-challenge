@@ -39,6 +39,7 @@ three main folders, each representing a service in docker-compose file
 
 ## Starting up the project:
 
+If we just want to execute the current algorithm 
 After cloning the repo, you can just run:
 
 `docker-compose build`

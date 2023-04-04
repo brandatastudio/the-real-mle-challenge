@@ -5,4 +5,8 @@ ENV LISTEN_PORT=3000
 EXPOSE 3000
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
-#ENTRYPOINT [ "main.py" ] for when we want the image to run as productive
+
+
+#comment and uncomment the COPY and CMD to activate and deactivate prod mode
+#COPY main.py ./
+#CMD ["python", "main.py"]

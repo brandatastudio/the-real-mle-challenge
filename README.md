@@ -1,7 +1,12 @@
 
-#About this assignment:
+# About this assignment:
 
-The three task assigments where solved. Task2 is stored in the directory prediction_app.
+-Task1 can be observed in the project structure and the code,
+-Task2 is stored in the directory prediction_app.
+-Task3 can be observed through the docker files and docker-compose
+
+## Motivation behind this package: Intended use
+
 This package was thought as a data science environment that serves both for experimentation with proper ml-ops and data-ops tracking, making use 
 of locally stored postgres databases for mlflow experiment tracking, and dvc for data version tracking. Code is properly decoupled in tasks,(maybe to be properly scheduled with airflow in a later iteration). Each task is a subdirectory, formed by two files: 
  a task.py and transform.py, for CI/CD , a test.py file can be added to the task folders. An example of this can be found in prediction_app
@@ -43,11 +48,13 @@ If we just want to execute the current algorithm
 After cloning the repo, you can just run:
 
 `docker-compose build`
+
 `docker-compose up`
 
 This will create and start running the docker images, after that, we can access the main application, the ds_environment service, with a command like this 
 
 -Getting inside the ds environment: 
+
 `docker exec -it the-real-mle-challenge-ds_environment-1 bash`
 
 From that point on, we are inside our ds_environment we can use to train and store experiments. To modify and test changes, we can just edit code in src through our local text editor, and through the volumes that have been configured in the dockerfiles, the docker container image will edit src instantaneusly to represent our local changes. If we modify the docker image or the docker compose, we need to relaunch docker-compose build for the specific container affected. 
@@ -57,6 +64,7 @@ from here, we can run a training experiment, we just initiate dvc from root fold
 `dvc init`
 
 and run from src/
+
 `dvc repro`
 
 IMPORTANT: make sure to specify an experiment run in the config file, before calling dvc repro for second time, otherwise it will cause an error because the same experiment run name can't be used. If you are debugging, specify in config file the experiment_name parameter as False
@@ -72,7 +80,7 @@ This dvc.yaml serves as great documentation of dependencies between the projects
 Although organized for automatization, the same project can serve as a ml experimentation environment, making full use of local postgres container to store mlflow runs, a config file where training configurations can be placed to execute in gridsearch, and dvc to properly register data versions. 
 
 
-### Launching mlflow
+## Launching mlflow
 after activating image, you can just execute `mlflow ui` and you will see the mlflow ui interface with experiment informaiton, 
 you can also launch the image from the web through visual studio code extension, the ui will be accessible to port host 5000
 ## Debugging tips:
@@ -80,9 +88,11 @@ you can also launch the image from the web through visual studio code extension,
 `docker-compose build {servicename}` can be used if we modify only one dockerfile, to rebuild only the affected service, the best example and most common use case would be `docker-compose build {servicename}` to rebuild image after modifying  ds_environment dockerfile (the src folder), but we can use this command with any of the services specified in the docker-compose.yml
 
 
--Productivizing the image:
+## Productivizing the image:
 
-As cloned, the image is mainly prepared as a data_science experimentation environment, this is so because that's mainly what the code inherited from the task assignment was used for, and I found interesting to focus the project this way, to simulate deployment we just need to remove a comment in src dockerfile, "entrypoint", this will execute data preparation, training, and flask app deployment in a go by the execution of main.py
+As cloned, the image is mainly prepared as a data_science experimentation environment, this is so because that's mainly what the code inherited from the task assignment was used for, and I found interesting to focus the project this way, to simulate deployment we just need to remove the comments in src dockerfile, "CMD", this will execute data preparation, training, and flask app deployment in a go by the execution of main.py
+
+
 
 
 Notes:
@@ -90,3 +100,8 @@ Notes:
 to delete it it's necesary to shutdown the imagebefore hand, if not, the system will consider the files as being opened and edited and prohibit their deletion
 
 -When working as a laboratory, it's preferable to execute training runs through `dvc repro`because this way all model dand data is stored as part of the experiment in mlflow, allowing for accurate reproducibility in the future. 
+
+
+## Code format:
+
+The black python library was used for formatting

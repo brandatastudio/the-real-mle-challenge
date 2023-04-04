@@ -120,3 +120,9 @@ to delete it it's necesary to shutdown the imagebefore hand, if not, the system 
 ## Code format:
 
 The black python library was used for formatting
+
+
+
+
+## Possible errors:
+it's possible that you need to set in your text editor, the wait-for-it.sh file to LF instead of CRLF.  This file is important because it makes sure to wait for the postgres image to be built, before building mlflow image. 

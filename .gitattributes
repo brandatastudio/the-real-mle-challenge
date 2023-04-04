@@ -1,0 +1,4 @@
+
+
+# Declare files that will always have CRLF line endings on checkout.
+wait-for-it.sh text eol=lf

@@ -3,3 +3,12 @@ Pipfile
 .vscode/
 postgres-store/
 __pycache__/
+models/*
+plots/*
+processed/*
+
+# exception to the rule
+
+!models/.gitkeep 
+!plots/.gitkeep 
+!processed/.gitkeep

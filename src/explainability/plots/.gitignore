@@ -1,5 +1,0 @@
-# exclude everything
-plots/*
-
-# exception to the rule
-!plots/.gitkeep 

@@ -3,9 +3,9 @@ Pipfile
 .vscode/
 postgres-store/
 __pycache__/
-models/*
-plots/*
-processed/*
+models/
+plots/
+processed/
 
 # exception to the rule
 

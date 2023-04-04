@@ -51,9 +51,24 @@ After cloning the repo, you can just run:
 
 `docker-compose up`
 
-This will create and start running the docker images, after that, we can access the main application, the ds_environment service, with a command like this 
+This will create and start running the docker images, deploy the training pipeline and finally deploy the inference application locally.
 
--Getting inside the ds environment: 
+Being the python image activated we will be able to access it through shell also. 
+
+
+## Activating laboratory mode
+Laboratory mode is essentially commenting the cmd command in the dockerfile of src, allowing us to not execute the pipeline everytime we do
+`docker-compose up` after commenting the CMD line in the src dockerfile, 
+
+Once we comment, we just need to run again 
+
+`docker-compose build`
+
+`docker-compose up`
+
+and we will be ready to access the ds_environment service.
+
+can access  the ds_environment service, with a command like this 
 
 `docker exec -it the-real-mle-challenge-ds_environment-1 bash`
 
@@ -67,7 +82,7 @@ and run from src/
 
 `dvc repro`
 
-IMPORTANT: make sure to specify an experiment run in the config file, before calling dvc repro for second time, otherwise it will cause an error because the same experiment run name can't be used. If you are debugging, specify in config file the experiment_name parameter as False
+IMPORTANT: make sure to specify an experiment run in the config file, before calling dvc repro for second time, if not, it will just replace runs for the experiment. If you want to add more runs, you can just add more lines in the config.yaml file in the ['training_experiment_runs':]
 
 ## How dvc works: 
 to use dvc basically one thing is necesary, doing dvc init from root folder. After that dvc repro will take care of executing the python scripts
@@ -90,7 +105,7 @@ you can also launch the image from the web through visual studio code extension,
 
 ## Productivizing the image:
 
-As cloned, the image is mainly prepared as a data_science experimentation environment, this is so because that's mainly what the code inherited from the task assignment was used for, and I found interesting to focus the project this way, to simulate deployment we just need to remove the comments in src dockerfile, "CMD", this will execute data preparation, training, and flask app deployment in a go by the execution of main.py
+To simulate deployment we just need to remove the comments in src dockerfile, "CMD", this will execute data preparation, training, and flask app deployment in a go by the execution of main.py everytime we do `docker-compose up`
 
 
 

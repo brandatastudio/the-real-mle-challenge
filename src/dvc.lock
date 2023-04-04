@@ -1,0 +1,65 @@
+schema: '2.0'
+stages:
+  data_prep:
+    cmd: python3 data_prep/task.py
+    deps:
+    - path: data/raw/listings.csv
+      md5: fa89385568757394d855ba067124dfe8
+      size: 91293672
+    - path: data_prep/task.py
+      md5: 4ec6841d01b0082a6e8f8c6897a7c5c7
+      size: 3904
+    - path: data_prep/transform.py
+      md5: 16817ab03a8041349e62961bbab0c54c
+      size: 6348
+    outs:
+    - path: data/processed/prepped_data.csv
+      md5: 437a0c3c765f10056dd85995d0e33be5
+      size: 16421266
+  training:
+    cmd: python3 training/task.py
+    deps:
+    - path: data/processed/prepped_data.csv
+      md5: 437a0c3c765f10056dd85995d0e33be5
+      size: 16421266
+    - path: training/task.py
+      md5: af54ac21a333b4eea0ec21c4c92f32dc
+      size: 4622
+    - path: training/transform.py
+      md5: c132b8ad1dbbf613df81e30f8c07d410
+      size: 5200
+    outs:
+    - path: models/simple_classifier.pkl
+      md5: c1f1b8a2c2bd2823873e47739f0bf469
+      size: 55967944
+    - path: models/simple_classifier_details.pkl
+      md5: 3c073fec3ec4fc1385384cea04a69930
+      size: 56274811
+  explainability:
+    cmd: python3 explainability/task.py
+    deps:
+    - path: explainability/task.py
+      md5: b237839d546f0560233b732ae32ee2f5
+      size: 2559
+    - path: explainability/transform.py
+      md5: 32b220439a236dd03b33ac47a8ebefd8
+      size: 5458
+    - path: models/simple_classifier.pkl
+      md5: c1f1b8a2c2bd2823873e47739f0bf469
+      size: 55967944
+    - path: models/simple_classifier_details.pkl
+      md5: 3c073fec3ec4fc1385384cea04a69930
+      size: 56274811
+    outs:
+    - path: explainability/plots/confusion_matrix.png
+      md5: 7450ca58d8aee3b004c0c895329bef07
+      size: 29871
+    - path: explainability/plots/feature_importance.png
+      md5: d08cb0ecf46929af52f4f73002d10475
+      size: 22142
+    - path: explainability/plots/histogram_by_neighbourhood.png
+      md5: f4bafb07a5ff2ec834063cdfac296454
+      size: 59374
+    - path: explainability/plots/metric_by_category_barplots.png
+      md5: 13a160eaf3b4c525516a1b3847c98e95
+      size: 20560

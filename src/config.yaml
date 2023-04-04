@@ -54,7 +54,7 @@ training:
   extra_log_githash : True 
   ml_model_path: 'models/simple_classifier.pkl'
   ml_model_details_path: 'models/simple_classifier_details.pkl'
-  training_experiment_name : 'test build 11'
+  training_experiment_name : 'test'
   training_experiment_runs: #gridsearch 
     run_1: {n_estimators: 500 , class_weight: 'balanced' ,  n_jobs: 4, random_state: 0 , criterion : "gini" } 
     run_2: {n_estimators: 250 , class_weight: 'balanced' ,  n_jobs: 4, random_state: 0 , criterion : "gini"}  

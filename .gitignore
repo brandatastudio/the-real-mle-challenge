@@ -4,5 +4,4 @@ Pipfile
 postgres-store/
 __pycache__/
 plots/
-data/
 models/

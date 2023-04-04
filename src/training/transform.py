@@ -5,6 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, roc_auc_score, classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
 import subprocess
+import pdb
 
 
 def split_data_for_cross_validation(data:pd.DataFrame , config:dict , test_size:float , random_state):
@@ -78,13 +79,21 @@ def gs_rf_classifiers_to_mlflow(ml_train_run_dict:dict , config:dict):
 
     '''needs a train_run_dict result of using gs_train_rf_classifier in a train() object'''
 
-   
-    experiment_id = mlflow.create_experiment(config['training_experiment_name'])
-        
     run_names = run_names = list(config['training_experiment_runs'].keys())
+    
+    experiment_name = config['training_experiment_name']
+    existing_exp = mlflow.get_experiment_by_name(experiment_name)
+    if not existing_exp:
+        mlflow.create_experiment(experiment_name)
+        
+    mlflow.set_experiment(experiment_name)
+    #experiment_id = mlflow.create_experiment(config['training_experiment_name'])
+    
+    #pdb.set_trace()
+    
     for i in run_names:
-
-        with mlflow.start_run(experiment_id = experiment_id , run_name = i) as run:
+        
+        with mlflow.start_run(run_name = i) as run:
             mlflow.log_params(config['training_experiment_runs'][i])
             mlflow.sklearn.log_model(ml_train_run_dict[i]['trained_model'] , 'classifier')
             mlflow.log_dict(dictionary = ml_train_run_dict[i]['eval_scores'],
@@ -94,8 +103,10 @@ def gs_rf_classifiers_to_mlflow(ml_train_run_dict:dict , config:dict):
             
             if config['extra_log_githash'] == True:
                 mlflow.log_param('git_hash' , ml_train_run_dict['git_hash'])
+    
 
             mlflow.end_run()
+            
 
 
     return(None)

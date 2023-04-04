@@ -1,0 +1,5 @@
+# exclude everything
+processed/*
+
+# exception to the rule
+!processed/.gitkeep 

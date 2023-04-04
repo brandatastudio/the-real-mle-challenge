@@ -1,0 +1,5 @@
+# exclude everything
+models/*
+
+# exception to the rule
+!models/.gitkeep 

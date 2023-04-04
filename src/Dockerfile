@@ -8,5 +8,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 
 #comment and uncomment the COPY and CMD to activate and deactivate prod mode
-#COPY main.py ./
-#CMD ["python", "main.py"]
+COPY main.py ./
+CMD ["python", "main.py"]

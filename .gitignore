@@ -3,5 +3,3 @@ Pipfile
 .vscode/
 postgres-store/
 __pycache__/
-plots/
-models/

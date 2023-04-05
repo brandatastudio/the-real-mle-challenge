@@ -119,10 +119,9 @@ To simulate deployment we just need to remove the comments in src dockerfile, "C
 
 
 Notes:
--docker-compose build creates a local directory in root branch called postgres_store, that serves as local remote database for mlflow
-to delete it it's necesary to shutdown the imagebefore hand, if not, the system will consider the files as being opened and edited and prohibit their deletion
+-docker-compose build creates a local directory in root branch called postgres_store, that serves as local remote database for mlflow. To delete it, it's necesary to shutdown the image before hand, if not, the system will consider the files as being opened and edited and prohibit their deletion
 
--When working as a laboratory, it's preferable to execute training runs through `dvc repro`because this way all model dand data is stored as part of the experiment in mlflow, allowing for accurate reproducibility in the future. 
+-When working as a laboratory, it's preferable to execute training runs through `dvc repro`because this way all model and data is stored as part of the experiment in mlflow, allowing for accurate reproducibility in the future. 
 
 
 ## Code format:

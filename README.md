@@ -1,8 +1,11 @@
 
-# About this assignment:
+
+# About this assignment's solution:
 
 -Task1 can be observed in the project structure and the code,
+
 -Task2 is stored in the directory prediction_app.
+
 -Task3 can be observed through the docker files and docker-compose
 
 ## Motivation behind this package: Intended use
@@ -16,11 +19,16 @@ Prediction_app being an app for deployment and basically, the representation of 
 
 ## Project structure:
 three main folders, each representing a service in docker-compose file
+
 -mlflow_docker:mlflow configuration to make sure it connects with postgres
--postgres_docker:data base that serves as a remote server hosted locally to be able to use mlflow ui through docker
+
+-postgres_docker:data base that serves as a remote server hosted locally to be able to use mlflow ui through 
+docker
+
 -src: the main python image that will execute our training, the most important folder 
 
 -postgres-store: Automatically generated when we launch postgres-docker image, serves as volume to connect local storage with the database/mlflow storage. Thanks to it, we can persist different container ml experiments and compare them when launching mlflow
+
 #### src folder structure
     -data_prep:first  task in pipeline
     -training:second task in pipeline

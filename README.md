@@ -47,7 +47,7 @@ docker
 
 ### Structure of task.py
 
- Task.py are constructed mainly basing each stage as an etl process, mainly three classes are created, read, task and load, this is so to facilitate decoupling of the code in an exectuded scheduled dag that is dependent of a cloud environment. Each task would read the data that depends on , transform it using mainly functions from transform.py and then load it to the local server folder or the cloud. 
+ Task.py are constructed mainly basing each stage as an etl process, mainly three classes are created, read, task and load, this is so to facilitate decoupling of the code in an executed scheduled dag that is dependent of a cloud environment. Each task would read the data that depends on , transform it using mainly functions from transform.py and then load it to the local server folder or the cloud. 
  the idea is that, functions only used by that task are stored in transform. Even so, the code is organized so that different folders can use different functions of parallel folders. 
 
 ## Starting up the project:
@@ -104,7 +104,7 @@ Although organized for automatization, the same project can serve as a ml experi
 
 
 ## Launching mlflow
-after activating image, you can just execute `mlflow ui` and you will see the mlflow ui interface with experiment informaiton, 
+after activating image, you can just execute `mlflow ui` and you will see the mlflow ui interface with experiment information, 
 you can also launch the image from the web through visual studio code extension, the ui will be accessible to port host 5000
 ## Debugging tips:
 
@@ -133,4 +133,6 @@ The black python library was used for formatting
 
 
 ## Possible errors:
-it's possible that you need to set in your text editor, the wait-for-it.sh file to LF instead of CRLF.  This file is important because it makes sure to wait for the postgres image to be built, before building mlflow image. 
+it's possible that you need to set in your text editor, the wait-for-it.sh file to LF instead of CRLF. Proper tests with git attribute were made to avoid this issue, but it's possible that your local configuration might override this.
+
+ This file is important because it makes sure to wait for the postgres image to be built, before building mlflow image. So if you see any error regarding bash lines, make sure that you are formatting wait-for-it.sh for LF. 

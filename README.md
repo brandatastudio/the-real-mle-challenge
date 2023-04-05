@@ -108,7 +108,7 @@ after activating image, you can just execute `mlflow ui` and you will see the ml
 you can also launch the image from the web through visual studio code extension, the ui will be accessible to port host 5000
 ## Debugging tips:
 
-`docker-compose build {servicename}` can be used if we modify only one dockerfile, to rebuild only the affected service, the best example and most common use case would be `docker-compose build {servicename}` to rebuild image after modifying  ds_environment dockerfile (the src folder), but we can use this command with any of the services specified in the docker-compose.yml
+`docker-compose build {servicename}` can be used if we modify only one dockerfile, to rebuild only the affected service, the best example and most common use case would be `docker-compose build ds_environment` to rebuild image after modifying  ds_environment dockerfile (the src folder), but we can use this command with any of the services specified in the docker-compose.yml
 
 
 ## Productivizing the image:
